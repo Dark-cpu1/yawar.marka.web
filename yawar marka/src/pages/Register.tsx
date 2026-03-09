@@ -50,7 +50,7 @@ const handleRegister = async () => {
         <div className="flex mb-3">
           <input
             type="email"
-            placeholder="Email gmail"
+            placeholder="Email"
             className="w-full p-2 mb-3 rounded bg-gray-700 text-white"
             onChange={(e) => setEmail(e.target.value)}
           />

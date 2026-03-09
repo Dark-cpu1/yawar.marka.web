@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
 
+
 function Home() {
   const [usuarios, setUsuarios] = useState<any[]>([])
   const [informes, setInformes] = useState<any[]>([])
   const [reacciones, setReacciones] = useState<any>({})
   const [comentarios, setComentarios] = useState<any>({})
   const [nuevoComentario, setNuevoComentario] = useState<any>({})
+  const [menuAbierto, setMenuAbierto] = useState<number | null>(null)
   const usuario = JSON.parse(localStorage.getItem("user") || "null")
 
 
@@ -127,44 +129,98 @@ const enviarComentario = async (informeId: number) => {
 
   cargarComentarios(informeId)
 }
+const usuarioLogueado = JSON.parse(localStorage.getItem("user") || "{}")
+
+const eliminarUsuario = (id:number) => {
+
+  fetch(`http://localhost:3000/api/users/${id}`, {
+    method: "DELETE"
+  })
+  .then(() => {setUsuarios(usuarios.filter(u => u.id !== id))
+  })
+}
+
+const cambiarRol = (id:number, nuevoRol:string) => {
+
+  fetch(`http://localhost:3000/api/users/${id}/rol`, {
+    method:"PUT",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify({ rol:nuevoRol })
+  })
+  .then(()=>{
+    setUsuarios(usuarios.map(u =>
+      u.id === id ? {...u, rol:nuevoRol} : u
+    ))
+  })
+}
+
 
   return (
     <div className="flex min-h-screen bg-gray-900">
-
-
-
-
-
-
+  
       <div className="w-64 bg-gray-800 p-4">
         <h2 className="text-white font-bold mb-4">
           Integrantes ({usuarios.length})
         </h2>
 
-        {usuarios.map((user) => (
-          <div
-            key={user.id}
-            className="flex items-center justify-between bg-gray-700 p-2 rounded mb-2 text-white"
-          >
-            <span>{user.nombre}</span>
+      {usuarios.map((user) => (
 
-            {user.rol?.trim().toLowerCase() === "admin" ? (
-              <span className="text-xs bg-red-600 px-2 py-1 rounded">
-                ADMIN
-              </span>
-            ) : (
-              <span className="text-xs bg-gray-600 px-2 py-1 rounded">
-                INTEGRANTE
-              </span>
-            )}
+        <div
+          key={user.id}
+          className="bg-gray-700 p-3 rounded mb-2 text-white flex justify-between items-center relative"
+        >
+
+          <div>
+            <p>{user.nombre}</p>
+            <p className="text-xs text-gray-300">{user.rol}</p>
           </div>
-        ))}
+
+          {usuarioLogueado.rol === "admin" && (
+
+            <div className="relative">
+
+              {/* BOTÓN 3 PUNTOS */}
+              <button
+                onClick={() =>
+                  setMenuAbierto(menuAbierto === user.id ? null : user.id)
+                }
+                className="text-xl"
+              >
+                ⋮
+              </button>
+
+              {/* MENÚ */}
+              {menuAbierto === user.id && (
+              <div className="absolute -right-6 mt-2 bg-gray-800 rounded shadow-lg text-sm z-50">                  <button 
+                    onClick={() => cambiarRol(user.id, "admin")}
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-700">
+                    Hacer Admin
+                  </button>
+
+                  <button 
+                    onClick={() => cambiarRol(user.id, "user")}
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-700">
+                    Quitar Admin
+                  </button>
+
+                  <button 
+                    onClick={() => eliminarUsuario(user.id)}
+                    className="block w-full text-left px-4 py-2 hover:bg-red-600">
+                    Eliminar
+                  </button>
+
+                </div>
+              )}
+            </div>
+
+          )}
+
+        </div>
+
+      ))}
       </div>
-
-
-
-
-
       <div className="flex-1 p-10 text-white overflow-y-auto">
 
         <h1 className="text-3xl font-bold mb-6">

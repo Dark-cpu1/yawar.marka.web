@@ -232,10 +232,6 @@ app.get("/api/reacciones/:informe_id", (req, res) => {
   })
 })
 
-
-
-
-
 app.put("/api/informes/cerrar/:id", (req, res) => {
   const { id } = req.params;
 
@@ -262,3 +258,29 @@ app.delete("/api/informes/:id", (req, res) => {
   );
 });
 
+app.delete("/api/users/:id", (req, res) => {
+  const { id } = req.params
+
+  db.query("DELETE FROM users WHERE id = ?", [id], (err) => {
+    if (err) return res.status(500).json(err)
+
+    res.json({ message: "Usuario eliminado" })
+  })
+})
+
+app.put("/api/users/:id/rol", (req, res) => {
+
+  const { id } = req.params
+  const { rol } = req.body
+
+  db.query(
+    "UPDATE users SET rol = ? WHERE id = ?",
+    [rol, id],
+    (err) => {
+
+      if (err) return res.status(500).json(err)
+
+      res.json({ message: "Rol actualizado" })
+    }
+  )
+})
