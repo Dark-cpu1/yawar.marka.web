@@ -4,8 +4,8 @@ const cors = require("cors")
 const multer = require("multer")
 const path = require("path")
 const fs = require("fs")
-
 const app = express()
+
 
 app.use(cors())
 app.use(express.json())
@@ -20,7 +20,7 @@ app.use("/uploads", express.static("uploads"))
 
 
 require("dotenv").config()
-const mysql = require("mysql")
+
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -30,8 +30,15 @@ const db = mysql.createConnection({
 })
 
 db.connect((err) => {
-  if (err) console.log("Error MySQL:", err)
-  else console.log("Conectado a MySQL ")
+  if (err) {
+    console.log("Error MySQL:", err)
+  } else {
+    console.log("Conectado a MySQL")
+  }
+})
+
+app.listen(5000, () => {
+  console.log("Servidor corriendo en puerto 5000")
 })
 
 
