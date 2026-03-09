@@ -12,7 +12,6 @@ export default defineConfig({
       },
     }),
   ],
-  base: './',
   server: {
     proxy: {
       '/api': {
