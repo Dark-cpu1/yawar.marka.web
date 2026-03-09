@@ -16,6 +16,9 @@ function App() {
   const esAdmin =
     usuarioLogueado?.rol?.trim().toLowerCase() === "admin"
 
+    const apiUrl = import.meta.env.VITE_API_URL
+    console.log(apiUrl)
+
   return (
     <BrowserRouter>
       <Header />

@@ -16,6 +16,8 @@ const handleRegister = async () => {
     alert("error de registro = ejemplo: XXXXXXXXX@gmail.com")
     return
   }
+  const apiUrl = import.meta.env.VITE_API_URL
+  console.log(apiUrl)
 
   try {
     const response = await fetch("http://localhost:3000/api/register", {

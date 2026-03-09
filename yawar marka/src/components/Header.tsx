@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom"
 
 
 function Header() {
-
+const apiUrl = import.meta.env.VITE_API_URL
+console.log(apiUrl)
   const usuarioLogueado = JSON.parse(localStorage.getItem("user") || "null")
 
   const navigate = useNavigate()

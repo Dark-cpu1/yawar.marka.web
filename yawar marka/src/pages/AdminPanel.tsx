@@ -6,7 +6,6 @@ function AdminPanel() {
   const [contenido, setContenido] = useState("")
   const [archivo, setArchivo] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
-
   const publicar = async () => {
 
     const formData = new FormData()
@@ -28,6 +27,8 @@ function AdminPanel() {
       setPreview(null)
     }
   }
+  const apiUrl = import.meta.env.VITE_API_URL
+  console.log(apiUrl)
 
   return (
     <div className="p-10 bg-gray-900 min-h-screen text-white">
