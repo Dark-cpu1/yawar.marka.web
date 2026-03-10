@@ -6,12 +6,6 @@ app.use(cors())
 app.use(express.json()) 
 
 
-fetch("https://tu-backend.com/api/users")
-  .then(res => res.json())
-  .then(data => {
-    console.log(data)
-  })
-
 app.post("/api/users", (req, res) => {
 
   console.log("body recibido:", req.body)

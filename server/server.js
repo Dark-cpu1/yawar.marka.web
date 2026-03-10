@@ -7,12 +7,7 @@ const fs = require("fs")
 const app = express()
 
 
-fetch("https://tu-backend.com/api/users")
-  .then(res => res.json())
-  .then(data => {
-    console.log(data)
-  })
-  
+
 app.use(cors())
 app.use(express.json())
 
