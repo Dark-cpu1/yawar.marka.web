@@ -5,7 +5,7 @@ function ListaUsuarios() {
   const [usuarios, setUsuarios] = useState<any[]>([])
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/users")
+    fetch("https://yawar-marka-web-61jx.vercel.app/api/users")
       .then(res => res.json())
       .then(data => setUsuarios(data))
   }, [])

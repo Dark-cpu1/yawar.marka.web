@@ -14,7 +14,7 @@ function Home() {
 
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/users")
+    fetch(`${apiUrl}/api/users`)
       .then(res => res.json())
       .then(data => setUsuarios(data))
   }, [])
@@ -24,14 +24,14 @@ function Home() {
     }, []);
 
   const cargarInformes = () => {
-    fetch("http://localhost:3000/api/informes")
+    fetch(`${apiUrl}/api/informes`)
       .then(res => res.json())
       .then(data => setInformes(data))
   };
 
 
     const eliminarInforme = async (id: number) => {
-      await fetch(`http://localhost:3000/api/informes/${id}`, {
+      await fetch(`${apiUrl}/api/informes/${id}`, {
         method: "DELETE"
       });
       cargarInformes();
@@ -39,7 +39,7 @@ function Home() {
 
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/informes")
+    fetch(`${apiUrl}/api/informes`)
       .then(res => res.json())
       .then(data => {
         setInformes(data)
@@ -47,7 +47,7 @@ function Home() {
 
 
         data.forEach((inf: any) => {
-          fetch(`http://localhost:3000/api/reacciones/${inf.id}`)
+          fetch(`${apiUrl}/api/reacciones/${inf.id}`)
             .then(res => res.json())
             .then(r => {
               setReacciones((prev: any) => ({
@@ -68,7 +68,7 @@ function Home() {
 
   const reaccionar = async (informeId: number, tipo: string) => {
 
-    await fetch("http://localhost:3000/api/reaccion", {
+    await fetch(`${apiUrl}/api/reaccion`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ informe_id: informeId, tipo })
@@ -90,7 +90,7 @@ function Home() {
 
 
 const cargarComentarios = (informeId: number) => {
-  fetch(`http://localhost:3000/api/comentarios/${informeId}`)
+  fetch(`${apiUrl}/api/comentarios/${informeId}`)
     .then(res => res.json())
     .then(data => {
       setComentarios((prev: any) => ({
@@ -112,7 +112,7 @@ const enviarComentario = async (informeId: number) => {
 
   if (!nuevoComentario[informeId]?.trim()) return
 
-  await fetch("http://localhost:3000/api/comentarios", {
+  await fetch(`${apiUrl}/api/comentarios`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -133,7 +133,7 @@ const usuarioLogueado = JSON.parse(localStorage.getItem("user") || "{}")
 
 const eliminarUsuario = (id:number) => {
 
-  fetch(`http://localhost:3000/api/users/${id}`, {
+  fetch(`${apiUrl}/api/users/${id}`, {
     method: "DELETE"
   })
   .then(() => {setUsuarios(usuarios.filter(u => u.id !== id))
@@ -142,7 +142,7 @@ const eliminarUsuario = (id:number) => {
 
 const cambiarRol = (id:number, nuevoRol:string) => {
 
-  fetch(`http://localhost:3000/api/users/${id}/rol`, {
+  fetch(`${apiUrl}/api/users/${id}/rol`, {
     method:"PUT",
     headers:{
       "Content-Type":"application/json"
@@ -183,7 +183,7 @@ console.log(apiUrl)
 
             <div className="relative">
 
-              {/* BOTÓN 3 PUNTOS */}
+
               <button
                 onClick={() =>
                   setMenuAbierto(menuAbierto === user.id ? null : user.id)
@@ -193,7 +193,6 @@ console.log(apiUrl)
                 ⋮
               </button>
 
-              {/* MENÚ */}
               {menuAbierto === user.id && (
               <div className="absolute -right-6 mt-2 bg-gray-800 rounded shadow-lg text-sm z-50">                  <button 
                     onClick={() => cambiarRol(user.id, "admin")}
@@ -260,13 +259,13 @@ console.log(apiUrl)
               <div className="mt-4">
                 {informe.archivo.match(/\.(jpg|jpeg|png|gif)$/i) ? (
                   <img
-                    src={`http://localhost:3000/uploads/${informe.archivo}`}
+                    src={`${apiUrl}/uploads/${informe.archivo}`}
                     className="w-96 rounded"
                   />
                 ) : (
                   <video controls className="w-96 rounded">
                     <source
-                      src={`http://localhost:3000/uploads/${informe.archivo}`}
+                      src={`${apiUrl}/uploads/${informe.archivo}`}
                     />
                   </video>
                 )}

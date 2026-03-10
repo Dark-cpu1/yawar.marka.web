@@ -14,7 +14,7 @@ function AdminPanel() {
 
     if (archivo) formData.append("archivo", archivo)
 
-    const res = await fetch("http://localhost:3000/api/informes", {
+    const res = await fetch(`${apiUrl}/api/informes`, {
       method: "POST",
       body: formData
     })

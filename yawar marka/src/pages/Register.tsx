@@ -20,7 +20,7 @@ const handleRegister = async () => {
   console.log(apiUrl)
 
   try {
-    const response = await fetch("http://localhost:3000/api/register", {
+    const response = await fetch(`${apiUrl}/api/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
