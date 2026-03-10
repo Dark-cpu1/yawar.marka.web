@@ -14,7 +14,7 @@ app.use(cors({
 app.use(express.json())
 
 app.get("/", (req, res) => {
-  res.send("Backend funcionando 🚀")
+  res.send("Backend funcionando ")
 })
 
 if (!fs.existsSync("uploads")) {
