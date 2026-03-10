@@ -6,8 +6,6 @@ const path = require("path")
 const fs = require("fs")
 const app = express()
 
-
-
 app.use(cors({
   origin: process.env.FRONTEND_URL || "https://yawar-marka-web-61jx.vercel.app",
   methods: ["GET","POST","PUT","DELETE"],
@@ -15,6 +13,9 @@ app.use(cors({
 }))
 app.use(express.json())
 
+app.get("/", (req, res) => {
+  res.send("Backend funcionando 🚀")
+})
 
 if (!fs.existsSync("uploads")) {
   fs.mkdirSync("uploads")
@@ -97,10 +98,9 @@ app.post("/api/register", (req, res) => {
 
           res.json({ message: "Usuario registrado" })
 
-          // Llamar a la URL de Vercel
-          fetch('https://yawarmarkaweb-production-78a9.up.railway.app')
-            .then(response => console.log('Respuesta de Vercel en register:', response.status))
-            .catch(error => console.log('Error llamando a Vercel en register:', error))
+          //fetch('https://yawarmarkaweb-production-78a9.up.railway.app')
+            //.then(response => console.log('Respuesta de Vercel en register:', response.status))
+            //.catch(error => console.log('Error llamando a Vercel en register:', error))
         }
       )
     }
@@ -164,9 +164,9 @@ app.post("/api/users", async (req, res) => {
       console.log(" Usuario insertado correctamente")
       res.json({ message: "Usuario creado" })
 
-      fetch('https://yawarmarkaweb-production-78a9.up.railway.app')
-        .then(response => console.log('Respuesta de Vercel en users:', response.status))
-        .catch(error => console.log('Error llamando a Vercel en users:', error))
+      //fetch('https://yawarmarkaweb-production-78a9.up.railway.app')
+        //.then(response => console.log('Respuesta de Vercel en users:', response.status))
+        //.catch(error => console.log('Error llamando a Vercel en users:', error))
     }
   )
 })
@@ -187,9 +187,9 @@ app.post("/api/informes", upload.single("archivo"), (req, res) => {
       if (err) return res.status(500).json(err)
       res.json({ message: "Informe publicado " })
 
-      fetch('https://yawarmarkaweb-production-78a9.up.railway.app')
-        .then(response => console.log('Respuesta de Vercel en informes:', response.status))
-        .catch(error => console.log('Error llamando a Vercel en informes:', error))
+      //fetch('https://yawarmarkaweb-production-78a9.up.railway.app')
+        //.then(response => console.log('Respuesta de Vercel en informes:', response.status))
+        //.catch(error => console.log('Error llamando a Vercel en informes:', error))
     }
   )
 })

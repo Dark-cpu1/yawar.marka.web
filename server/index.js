@@ -1,49 +1,17 @@
 const express = require("express")
 const mysql = require("mysql2")
 const cors = require("cors")
-const app = express()
-
 require("dotenv").config()
+
+const app = express()
 
 app.use(cors({
   origin: process.env.FRONTEND_URL || "https://yawar-marka-web-61jx.vercel.app",
   methods: ["GET","POST","PUT","DELETE"],
   credentials: true
 }))
-app.use(express.json()) 
 
-
-app.post("/api/users", async (req, res) => {
-
-  console.log("body recibido:", req.body)
-
-  const { nombre, email, password, role } = req.body
-
-  db.query(
-    "INSERT INTO users (nombre, email, password, role) VALUES (?, ?, ?, ?)",
-    [nombre, email, password, role],
-    async (err, result) => {
-
-      if (err) {
-        console.log("Error insertando:", err)
-        return res.status(500).json(err)
-      }
-
-      console.log(" Usuario insertado correctamente")
-      res.json({ message: "Usuario creado" })
-
-      try {
-        const response = await fetch('https://yawarmarkaweb-production-78a9.up.railway.app');
-        console.log('Respuesta de Vercel:', response.status);
-      } catch (error) {
-        console.log('Error llamando a Vercel:', error);
-      }
-    }
-  )
-})
-
-
-require("dotenv").config()
+app.use(express.json())
 
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -60,10 +28,34 @@ db.connect((err) => {
   }
 })
 
-require("dotenv").config()
+app.get("/", (req, res) => {
+  res.send("API running")
+})
 
-// Use environment variable for port, defaulting to 3000
-const PORT = process.env.PORT || 3000;
+app.post("/api/users", (req, res) => {
+
+  console.log("body recibido:", req.body)
+
+  const { nombre, email, password, role } = req.body
+
+  db.query(
+    "INSERT INTO users (nombre, email, password, role) VALUES (?, ?, ?, ?)",
+    [nombre, email, password, role],
+    (err, result) => {
+
+      if (err) {
+        console.log("Error insertando:", err)
+        return res.status(500).json(err)
+      }
+
+      console.log("Usuario insertado correctamente")
+      res.json({ message: "Usuario creado" })
+    }
+  )
+})
+
+const PORT = process.env.PORT || 3000
+
 app.listen(PORT, () => {
   console.log("Servidor corriendo en puerto " + PORT)
 })
