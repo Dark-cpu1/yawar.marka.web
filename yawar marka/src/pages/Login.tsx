@@ -1,4 +1,5 @@
 import { useState } from "react"
+const apiUrl = import.meta.env.VITE_API_URL
 
 function Login() {
 
@@ -7,7 +8,7 @@ function Login() {
 
   const handleLogin = async () => {
 
-  const response = await fetch("yawarmarkaweb-production-78a9.up.railway.app/api/login", {
+  const response = await fetch(`${apiUrl}/api/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

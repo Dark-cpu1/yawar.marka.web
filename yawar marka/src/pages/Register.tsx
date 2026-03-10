@@ -1,4 +1,5 @@
 import { useState } from "react"
+const apiUrl = import.meta.env.VITE_API_URL
 
 function Register() {
 
@@ -16,11 +17,9 @@ const handleRegister = async () => {
     alert("error de registro = ejemplo: XXXXXXXXX@gmail.com")
     return
   }
-  const apiUrl = import.meta.env.VITE_API_URL
-  console.log(apiUrl)
 
   try {
-    const response = await fetch(`yawarmarkaweb-production-78a9.up.railway.app/api/register`, {
+    const response = await fetch(`${apiUrl}/api/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

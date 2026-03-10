@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
+const apiUrl = import.meta.env.VITE_API_URL
 
 function Dashboard() {
 
   const [usuarios, setUsuarios] = useState<any[]>([])
 
   useEffect(() => {
-    fetch(`yawarmarkaweb-production-78a9.up.railway.app/api/users`)
+    fetch(`${apiUrl}/api/users`)
       .then(res => res.json())
       .then(data => {
         console.log("Usuarios:", data)
@@ -15,8 +16,6 @@ function Dashboard() {
   }, [])
 
   
-  const apiUrl = import.meta.env.VITE_API_URL
-  console.log(apiUrl)
   return (
     <div className="flex min-h-screen bg-gray-900">
 

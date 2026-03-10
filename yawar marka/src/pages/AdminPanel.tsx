@@ -1,4 +1,5 @@
 import { useState } from "react"
+const apiUrl = import.meta.env.VITE_API_URL
 
 function AdminPanel() {
 
@@ -14,7 +15,7 @@ function AdminPanel() {
 
     if (archivo) formData.append("archivo", archivo)
 
-    const res = await fetch(`yawarmarkaweb-production-78a9.up.railway.app/api/informes`, {
+    const res = await fetch(`${apiUrl}/api/informes`, {
       method: "POST",
       body: formData
     })
@@ -27,8 +28,6 @@ function AdminPanel() {
       setPreview(null)
     }
   }
-  const apiUrl = import.meta.env.VITE_API_URL
-  console.log(apiUrl)
 
   return (
     <div className="p-10 bg-gray-900 min-h-screen text-white">

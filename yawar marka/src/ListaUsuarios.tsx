@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react"
+const apiUrl = import.meta.env.VITE_API_URL
 
 function ListaUsuarios() {
 
   const [usuarios, setUsuarios] = useState<any[]>([])
 
   useEffect(() => {
-    fetch("yawarmarkaweb-production-78a9.up.railway.app/api/users")
+    fetch(`${apiUrl}/api/users`)
       .then(res => res.json())
       .then(data => setUsuarios(data))
   }, [])
-  const apiUrl = import.meta.env.VITE_API_URL
-  console.log(apiUrl)
+
   return (
     <div className="min-h-screen bg-gray-900 p-10">
       <h2 className="text-white text-2xl mb-6">Integrantes Registrados</h2>
