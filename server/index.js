@@ -57,6 +57,8 @@ db.connect((err) => {
   }
 })
 
-app.listen(5000, () => {
-  console.log("Servidor corriendo en puerto 5000")
+// Use environment variable for port, defaulting to 3000
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log("Servidor corriendo en puerto " + PORT)
 })
