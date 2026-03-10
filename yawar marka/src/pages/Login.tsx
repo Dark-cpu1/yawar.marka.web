@@ -1,4 +1,5 @@
 import { useState } from "react"
+const apiUrl = import.meta.env.VITE_API_URL
 
 function Login() {
 
@@ -29,8 +30,7 @@ function Login() {
     alert(data.message)
   }
 }
-const apiUrl = import.meta.env.VITE_API_URL
-console.log(apiUrl)
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900">
       <div className="bg-gray-800 p-8 rounded-xl w-80">

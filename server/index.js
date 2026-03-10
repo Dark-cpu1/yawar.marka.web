@@ -2,8 +2,11 @@ const express = require("express")
 const mysql = require("mysql2")
 const cors = require("cors")
 const app = express()
+
+require("dotenv").config()
+
 app.use(cors({
-  origin: "https://yawar-marka-web-61jx.vercel.app",
+  origin: process.env.FRONTEND_URL || "https://yawar-marka-web-61jx.vercel.app",
   methods: ["GET","POST","PUT","DELETE"],
   credentials: true
 }))
@@ -57,8 +60,10 @@ db.connect((err) => {
   }
 })
 
+require("dotenv").config()
+
 // Use environment variable for port, defaulting to 3000
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Servidor corriendo en puerto " + PORT)
 })

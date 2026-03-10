@@ -1,6 +1,5 @@
 function Info() {
   const apiUrl = import.meta.env.VITE_API_URL
-  console.log(apiUrl)
   return (
     <div className="min-h-screen flex items-center justify-center  from-purple-900 via-gray-900 to-black text-white p-6">
       
@@ -34,7 +33,6 @@ function Info() {
           👉 ¡Aquí todos pueden brillar!
         </p>
 
-        {/* 📍 Google Maps */}
         <div className="mt-6">
           <h3 className="text-center text-lg font-semibold text-pink-400 mb-3">
             📍 Nuestra Ubicación

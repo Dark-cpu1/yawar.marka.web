@@ -9,7 +9,7 @@ const app = express()
 
 
 app.use(cors({
-  origin: "https://yawar-marka-web-61jx.vercel.app",
+  origin: process.env.FRONTEND_URL || "https://yawar-marka-web-61jx.vercel.app",
   methods: ["GET","POST","PUT","DELETE"],
   credentials: true
 }))
@@ -205,9 +205,7 @@ app.get("/api/informes", (req, res) => {
   )
 })
 
-app.listen(3000, () => {
-  console.log("Servidor corriendo en puerto 3000 ")
-})
+
 
 
 app.post("/api/comentarios", (req, res) => {
@@ -292,7 +290,7 @@ app.put("/api/informes/cerrar/:id", (req, res) => {
     [id],
     (err) => {
       if (err) return res.status(500).json(err);
-      res.json({ message: "Informe cerrado ✅" });
+      res.json({ message: "Informe cerrado " });
     }
   );
 });
