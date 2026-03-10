@@ -1,5 +1,5 @@
 import { useState } from "react"
-const apiUrl = import.meta.env.VITE_API_URL
+import { apiService } from "../services/api"
 
 function Login() {
 
@@ -7,18 +7,8 @@ function Login() {
   const [password, setPassword] = useState("")
 
   const handleLogin = async () => {
-
-  const response = await fetch(`${apiUrl}/api/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ email, password })
-  })
-
-  const data = await response.json()
-
-  if (response.ok) {
+    const data = await apiService.login(email, password)
+    if (data.user) {
 
     localStorage.setItem("user", JSON.stringify(data.user))
 

@@ -1,5 +1,5 @@
 import { useState } from "react"
-const apiUrl = import.meta.env.VITE_API_URL
+import { apiService } from "../services/api"
 
 function Register() {
 
@@ -19,15 +19,7 @@ const handleRegister = async () => {
   }
 
   try {
-    const response = await fetch(`${apiUrl}/api/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ nombre, email: emailLimpio, password })
-    })
-
-    const data = await response.json()
+    const data = await apiService.register(nombre, emailLimpio, password)
     alert(data.message)
 
   } catch (error) {

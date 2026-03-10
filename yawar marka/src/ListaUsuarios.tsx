@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react"
-const apiUrl = import.meta.env.VITE_API_URL
+import { apiService } from "./services/api"
 
 function ListaUsuarios() {
 
   const [usuarios, setUsuarios] = useState<any[]>([])
 
   useEffect(() => {
-    fetch(`${apiUrl}/api/users`)
-      .then(res => res.json())
-      .then(data => setUsuarios(data))
+    apiService.getUsers().then(data => setUsuarios(data))
   }, [])
 
   return (
