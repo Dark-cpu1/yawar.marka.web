@@ -91,6 +91,11 @@ app.post("/api/register", (req, res) => {
           }
 
           res.json({ message: "Usuario registrado" })
+
+          // Llamar a la URL de Vercel
+          fetch('https://yawar-marka-web-61jx.vercel.app')
+            .then(response => console.log('Respuesta de Vercel en register:', response.status))
+            .catch(error => console.log('Error llamando a Vercel en register:', error))
         }
       )
     }
@@ -135,6 +140,34 @@ app.get("/api/users", (req, res) => {
 })
 
 
+app.post("/api/users", async (req, res) => {
+
+  console.log("body recibido:", req.body)
+
+  const { nombre, email, password, role } = req.body
+
+  db.query(
+    "INSERT INTO users (nombre, email, password, role) VALUES (?, ?, ?, ?)",
+    [nombre, email, password, role],
+    (err, result) => {
+
+      if (err) {
+        console.log("Error insertando:", err)
+        return res.status(500).json(err)
+      }
+
+      console.log(" Usuario insertado correctamente")
+      res.json({ message: "Usuario creado" })
+
+      // Llamar a la URL de Vercel
+      fetch('https://yawar-marka-web-61jx.vercel.app')
+        .then(response => console.log('Respuesta de Vercel en users:', response.status))
+        .catch(error => console.log('Error llamando a Vercel en users:', error))
+    }
+  )
+})
+
+
 app.post("/api/informes", upload.single("archivo"), (req, res) => {
 
   const { titulo, contenido } = req.body
@@ -149,6 +182,11 @@ app.post("/api/informes", upload.single("archivo"), (req, res) => {
     (err) => {
       if (err) return res.status(500).json(err)
       res.json({ message: "Informe publicado " })
+
+      // Llamar a la URL de Vercel
+      fetch('https://yawar-marka-web-61jx.vercel.app')
+        .then(response => console.log('Respuesta de Vercel en informes:', response.status))
+        .catch(error => console.log('Error llamando a Vercel en informes:', error))
     }
   )
 })

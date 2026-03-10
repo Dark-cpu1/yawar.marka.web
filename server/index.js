@@ -6,7 +6,7 @@ app.use(cors())
 app.use(express.json()) 
 
 
-app.post("/api/users", (req, res) => {
+app.post("/api/users", async (req, res) => {
 
   console.log("body recibido:", req.body)
 
@@ -15,7 +15,7 @@ app.post("/api/users", (req, res) => {
   db.query(
     "INSERT INTO users (nombre, email, password, role) VALUES (?, ?, ?, ?)",
     [nombre, email, password, role],
-    (err, result) => {
+    async (err, result) => {
 
       if (err) {
         console.log("Error insertando:", err)
@@ -24,6 +24,14 @@ app.post("/api/users", (req, res) => {
 
       console.log(" Usuario insertado correctamente")
       res.json({ message: "Usuario creado" })
+
+      // Llamar a la URL de Vercel
+      try {
+        const response = await fetch('https://yawar-marka-web-61jx.vercel.app');
+        console.log('Respuesta de Vercel:', response.status);
+      } catch (error) {
+        console.log('Error llamando a Vercel:', error);
+      }
     }
   )
 })
