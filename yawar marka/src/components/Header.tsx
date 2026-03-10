@@ -9,7 +9,6 @@ function Header() {
 
   const navigate = useNavigate()
 
-
   const cerrarSesion = () => {
     localStorage.removeItem("user")
     window.location.href = "/"
