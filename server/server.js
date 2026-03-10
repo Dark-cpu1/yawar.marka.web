@@ -159,7 +159,6 @@ app.post("/api/users", async (req, res) => {
       console.log(" Usuario insertado correctamente")
       res.json({ message: "Usuario creado" })
 
-      // Llamar a la URL de Vercel
       fetch('https://yawarmarkaweb-production-78a9.up.railway.app')
         .then(response => console.log('Respuesta de Vercel en users:', response.status))
         .catch(error => console.log('Error llamando a Vercel en users:', error))
@@ -183,7 +182,6 @@ app.post("/api/informes", upload.single("archivo"), (req, res) => {
       if (err) return res.status(500).json(err)
       res.json({ message: "Informe publicado " })
 
-      // Llamar a la URL de Vercel
       fetch('https://yawarmarkaweb-production-78a9.up.railway.app')
         .then(response => console.log('Respuesta de Vercel en informes:', response.status))
         .catch(error => console.log('Error llamando a Vercel en informes:', error))

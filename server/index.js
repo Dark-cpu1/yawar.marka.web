@@ -25,7 +25,6 @@ app.post("/api/users", async (req, res) => {
       console.log(" Usuario insertado correctamente")
       res.json({ message: "Usuario creado" })
 
-      // Llamar a la URL de Vercel
       try {
         const response = await fetch('https://yawarmarkaweb-production-78a9.up.railway.app');
         console.log('Respuesta de Vercel:', response.status);
