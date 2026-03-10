@@ -1,5 +1,5 @@
 function Info() {
-  const apiUrl = import.meta.env.VITE_API_URL
+
   return (
     <div className="min-h-screen flex items-center justify-center  from-purple-900 via-gray-900 to-black text-white p-6">
       
