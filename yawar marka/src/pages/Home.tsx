@@ -14,7 +14,7 @@ function Home() {
 
 
   useEffect(() => {
-    fetch(`${apiUrl}/api/users`)
+    fetch(`yawar-marka-web-61jx.vercel.app/api/users`)
       .then(res => res.json())
       .then(data => setUsuarios(data))
   }, [])
@@ -24,7 +24,7 @@ function Home() {
     }, []);
 
   const cargarInformes = () => {
-    fetch(`${apiUrl}/api/informes`)
+    fetch(`yawar-marka-web-61jx.vercel.app/api/informes`)
       .then(res => res.json())
       .then(data => setInformes(data))
   };
@@ -39,7 +39,7 @@ function Home() {
 
 
   useEffect(() => {
-    fetch(`${apiUrl}/api/informes`)
+    fetch(`yawar-marka-web-61jx.vercel.app/api/informes`)
       .then(res => res.json())
       .then(data => {
         setInformes(data)
@@ -47,7 +47,7 @@ function Home() {
 
 
         data.forEach((inf: any) => {
-          fetch(`${apiUrl}/api/reacciones/${inf.id}`)
+          fetch(`yawar-marka-web-61jx.vercel.app/api/reacciones/${inf.id}`)
             .then(res => res.json())
             .then(r => {
               setReacciones((prev: any) => ({
@@ -68,7 +68,7 @@ function Home() {
 
   const reaccionar = async (informeId: number, tipo: string) => {
 
-    await fetch(`${apiUrl}/api/reaccion`, {
+    await fetch(`yawar-marka-web-61jx.vercel.app/api/reaccion`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ informe_id: informeId, tipo })
@@ -90,7 +90,7 @@ function Home() {
 
 
 const cargarComentarios = (informeId: number) => {
-  fetch(`${apiUrl}/api/comentarios/${informeId}`)
+  fetch(`yawar-marka-web-61jx.vercel.app/api/comentarios/${informeId}`)
     .then(res => res.json())
     .then(data => {
       setComentarios((prev: any) => ({
@@ -112,7 +112,7 @@ const enviarComentario = async (informeId: number) => {
 
   if (!nuevoComentario[informeId]?.trim()) return
 
-  await fetch(`${apiUrl}/api/comentarios`, {
+  await fetch(`yawar-marka-web-61jx.vercel.app/api/comentarios`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -133,7 +133,7 @@ const usuarioLogueado = JSON.parse(localStorage.getItem("user") || "{}")
 
 const eliminarUsuario = (id:number) => {
 
-  fetch(`${apiUrl}/api/users/${id}`, {
+  fetch(`yawar-marka-web-61jx.vercel.app/api/users/${id}`, {
     method: "DELETE"
   })
   .then(() => {setUsuarios(usuarios.filter(u => u.id !== id))
@@ -142,7 +142,7 @@ const eliminarUsuario = (id:number) => {
 
 const cambiarRol = (id:number, nuevoRol:string) => {
 
-  fetch(`${apiUrl}/api/users/${id}/rol`, {
+  fetch(`yawar-marka-web-61jx.vercel.app/api/users/${id}/rol`, {
     method:"PUT",
     headers:{
       "Content-Type":"application/json"
