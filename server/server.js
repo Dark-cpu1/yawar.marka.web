@@ -8,7 +8,11 @@ const app = express()
 
 
 
-app.use(cors())
+app.use(cors({
+  origin: "https://yawar-marka-web-61jx.vercel.app",
+  methods: ["GET","POST","PUT","DELETE"],
+  credentials: true
+}))
 app.use(express.json())
 
 
