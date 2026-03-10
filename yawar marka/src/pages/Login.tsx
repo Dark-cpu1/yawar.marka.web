@@ -7,7 +7,7 @@ function Login() {
 
   const handleLogin = async () => {
 
-  const response = await fetch("https://yawar-marka-web-61jx.vercel.app/api/login", {
+  const response = await fetch("yawarmarkaweb-production-78a9.up.railway.app/api/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

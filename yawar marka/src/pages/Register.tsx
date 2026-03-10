@@ -20,7 +20,7 @@ const handleRegister = async () => {
   console.log(apiUrl)
 
   try {
-    const response = await fetch(`yawar-marka-web-61jx.vercel.app/api/register`, {
+    const response = await fetch(`yawarmarkaweb-production-78a9.up.railway.app/api/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

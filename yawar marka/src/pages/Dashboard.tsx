@@ -5,7 +5,7 @@ function Dashboard() {
   const [usuarios, setUsuarios] = useState<any[]>([])
 
   useEffect(() => {
-    fetch(`yawar-marka-web-61jx.vercel.app/api/users`)
+    fetch(`yawarmarkaweb-production-78a9.up.railway.app/api/users`)
       .then(res => res.json())
       .then(data => {
         console.log("Usuarios:", data)

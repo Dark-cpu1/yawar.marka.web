@@ -7,7 +7,7 @@ function Publicar() {
   const [videoUrl, setVideoUrl] = useState("")
 
   const publicar = async () => {
-    await fetch(`${apiUrl}/api/posts`, {
+    await fetch(`yawarmarkaweb-production-78a9.up.railway.app/api/posts`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ mensaje, videoUrl })

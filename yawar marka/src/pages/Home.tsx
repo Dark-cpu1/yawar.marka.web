@@ -14,7 +14,7 @@ function Home() {
 
 
   useEffect(() => {
-    fetch(`yawar-marka-web-61jx.vercel.app/api/users`)
+    fetch(`yawarmarkaweb-production-78a9.up.railway.app/api/users`)
       .then(res => res.json())
       .then(data => setUsuarios(data))
   }, [])
@@ -24,14 +24,14 @@ function Home() {
     }, []);
 
   const cargarInformes = () => {
-    fetch(`yawar-marka-web-61jx.vercel.app/api/informes`)
+    fetch(`yawarmarkaweb-production-78a9.up.railway.app/api/informes`)
       .then(res => res.json())
       .then(data => setInformes(data))
   };
 
 
     const eliminarInforme = async (id: number) => {
-      await fetch(`${apiUrl}/api/informes/${id}`, {
+      await fetch(`yawarmarkaweb-production-78a9.up.railway.app/api/informes/${id}`, {
         method: "DELETE"
       });
       cargarInformes();
@@ -39,7 +39,7 @@ function Home() {
 
 
   useEffect(() => {
-    fetch(`yawar-marka-web-61jx.vercel.app/api/informes`)
+    fetch(`yawarmarkaweb-production-78a9.up.railway.app/api/informes`)
       .then(res => res.json())
       .then(data => {
         setInformes(data)
@@ -47,7 +47,7 @@ function Home() {
 
 
         data.forEach((inf: any) => {
-          fetch(`yawar-marka-web-61jx.vercel.app/api/reacciones/${inf.id}`)
+          fetch(`yawarmarkaweb-production-78a9.up.railway.app/api/reacciones/${inf.id}`)
             .then(res => res.json())
             .then(r => {
               setReacciones((prev: any) => ({
@@ -68,7 +68,7 @@ function Home() {
 
   const reaccionar = async (informeId: number, tipo: string) => {
 
-    await fetch(`yawar-marka-web-61jx.vercel.app/api/reaccion`, {
+    await fetch(`yawarmarkaweb-production-78a9.up.railway.app/api/reacciones`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ informe_id: informeId, tipo })
@@ -90,7 +90,7 @@ function Home() {
 
 
 const cargarComentarios = (informeId: number) => {
-  fetch(`yawar-marka-web-61jx.vercel.app/api/comentarios/${informeId}`)
+  fetch(`yawarmarkaweb-production-78a9.up.railway.app/api/comentarios/${informeId}`)
     .then(res => res.json())
     .then(data => {
       setComentarios((prev: any) => ({
@@ -112,7 +112,7 @@ const enviarComentario = async (informeId: number) => {
 
   if (!nuevoComentario[informeId]?.trim()) return
 
-  await fetch(`yawar-marka-web-61jx.vercel.app/api/comentarios`, {
+  await fetch(`yawarmarkaweb-production-78a9.up.railway.app/api/comentarios`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -133,7 +133,7 @@ const usuarioLogueado = JSON.parse(localStorage.getItem("user") || "{}")
 
 const eliminarUsuario = (id:number) => {
 
-  fetch(`yawar-marka-web-61jx.vercel.app/api/users/${id}`, {
+  fetch(`yawarmarkaweb-production-78a9.up.railway.app/api/users/${id}`, {
     method: "DELETE"
   })
   .then(() => {setUsuarios(usuarios.filter(u => u.id !== id))
@@ -142,7 +142,7 @@ const eliminarUsuario = (id:number) => {
 
 const cambiarRol = (id:number, nuevoRol:string) => {
 
-  fetch(`yawar-marka-web-61jx.vercel.app/api/users/${id}/rol`, {
+  fetch(`yawarmarkaweb-production-78a9.up.railway.app/api/users/${id}/rol`, {
     method:"PUT",
     headers:{
       "Content-Type":"application/json"
