@@ -27,7 +27,7 @@ app.post("/api/users", async (req, res) => {
 
       // Llamar a la URL de Vercel
       try {
-        const response = await fetch('https://yawar-marka-web-61jx.vercel.app');
+        const response = await fetch('https://yawarmarkaweb-production-78a9.up.railway.app');
         console.log('Respuesta de Vercel:', response.status);
       } catch (error) {
         console.log('Error llamando a Vercel:', error);
