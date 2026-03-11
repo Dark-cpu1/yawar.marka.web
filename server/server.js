@@ -28,21 +28,27 @@ app.use("/uploads", express.static("uploads"))
 require("dotenv").config()
 
 
-const db = mysql.createConnection({
-  host: process.env.MYSQLHOST,    
-  user: process.env.MYSQLUSER,   
-  password: process.env.MYSQLPASSWORD, 
-  database: process.env.MYSQLDATABASE, 
-  port: process.env.MYSQLPORT     
-})
+const db = mysql.createPool({
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  database: process.env.MYSQLDATABASE,
+  port: process.env.MYSQLPORT,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+  enableKeepAlive: true,
+  keepAliveInitialDelay: 10000
+});
 
-db.connect((err) => {
+db.getConnection((err, connection) => {
   if (err) {
-    console.log("Error MySQL:", err)
+    console.log("❌ Error MySQL:", err.message);
   } else {
-    console.log("Conectado a MySQL")
+    console.log("✅ Conectado a MySQL (Pool)");
+    connection.release();
   }
-})
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
