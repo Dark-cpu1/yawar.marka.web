@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const apiService = {
   login: (email: string, password: string) =>
@@ -20,4 +20,4 @@ export const apiService = {
 
   getInformes: () =>
     fetch(`${API_URL}/api/informes`).then(res => res.json()),
-}
+};
