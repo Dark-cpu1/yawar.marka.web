@@ -1,5 +1,7 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
+console.log("Mi API URL es:", API_URL);
+
 export const apiService = {
   login: (email: string, password: string) =>
     fetch(`${API_URL}/api/login`, {
