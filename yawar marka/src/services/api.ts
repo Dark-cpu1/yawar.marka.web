@@ -1,6 +1,6 @@
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || "https://yawarmarkaweb-production-1701.up.railway.app";
 
-console.log("Mi API URL es:", API_URL);
+console.log("Conectando a:", API_URL);
 
 export const apiService = {
   login: (email: string, password: string) =>
