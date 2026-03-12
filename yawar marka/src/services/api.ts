@@ -1,10 +1,9 @@
-// Usamos la URL de entorno o la de respaldo por si Vercel falla
 const API_URL = import.meta.env.VITE_API_URL || "https://yawarmarkaweb-production-1701.up.railway.app";
 
 console.log("Conectando a:", API_URL);
 
 export const apiService = {
-  // --- USUARIOS ---
+  // --- AUTENTICACIÓN (Se mantiene igual) ---
   login: (email: string, password: string) =>
     fetch(`${API_URL}/api/login`, {
       method: "POST",
@@ -19,6 +18,7 @@ export const apiService = {
       body: JSON.stringify({ nombre, email, password })
     }).then(res => res.json()),
 
+  // --- USUARIOS ---
   getUsers: () =>
     fetch(`${API_URL}/api/users`).then(res => res.json()),
 
@@ -36,19 +36,17 @@ export const apiService = {
   getInformes: () =>
     fetch(`${API_URL}/api/informes`).then(res => res.json()),
 
-  // Esta es la función que te faltaba para que el botón de enviar funcione
+  // Para crear informes con archivos ( FormData )
   createInforme: (formData: FormData) =>
     fetch(`${API_URL}/api/informes`, {
       method: "POST",
-      // Nota: No enviamos Content-Type header cuando usamos FormData, 
-      // el navegador lo hace automáticamente con el "boundary" correcto.
-      body: formData 
+      body: formData
     }).then(res => res.json()),
 
   deleteInforme: (id: number) =>
     fetch(`${API_URL}/api/informes/${id}`, { method: "DELETE" }).then(res => res.json()),
 
-  // --- REACCIONES Y COMENTARIOS ---
+  // --- REACCIONES ---
   getReacciones: (informeId: number) =>
     fetch(`${API_URL}/api/reacciones/${informeId}`).then(res => res.json()),
 
@@ -59,6 +57,7 @@ export const apiService = {
       body: JSON.stringify({ informe_id, usuario_id, tipo })
     }).then(res => res.json()),
 
+  // --- COMENTARIOS ---
   getComentarios: (informeId: number) =>
     fetch(`${API_URL}/api/comentarios/${informeId}`).then(res => res.json()),
 
