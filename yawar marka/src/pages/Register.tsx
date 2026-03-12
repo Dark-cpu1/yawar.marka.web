@@ -1,68 +1,89 @@
 import { useState } from "react"
 import { apiService } from "../services/api"
+import { useNavigate } from "react-router-dom" 
 
 function Register() {
-
   const [nombre, setNombre] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const navigate = useNavigate() 
 
-const handleRegister = async () => {
+  const handleRegister = async () => {
+    const emailLimpio = email.trim()
+    const regex = /^[a-zA-Z0-9._%+-]+@(gmail\.com|hotmail\.com)$/
 
-  const emailLimpio = email.trim()
+    if (!regex.test(emailLimpio)) {
+      alert("Error de registro: usa un correo válido (ejemplo: usuario@gmail.com)")
+      return
+    }
 
-  const regex = /^[a-zA-Z0-9._%+-]+@(gmail\.com|hotmail\.com)$/
+    if (!nombre || !password) {
+      alert("Por favor completa todos los campos")
+      return
+    }
 
-  if (!regex.test(emailLimpio)) {
-    alert("error de registro = ejemplo: XXXXXXXXX@gmail.com")
-    return
+    try {
+      const data = await apiService.register(nombre, emailLimpio, password)
+
+      // Verificamos si el registro fue exitoso
+      // Nota: Dependiendo de tu backend, el objeto de usuario puede estar en data o data.user
+      if (data && (data.id || data.user)) {
+        alert("¡Cuenta creada con éxito! Entrando...")
+
+        // 1. Guardamos los datos en localStorage para iniciar sesión automáticamente
+        const datosUsuario = data.user ? data.user : data
+        localStorage.setItem("user", JSON.stringify(datosUsuario))
+
+        // 2. Redirigimos al Home
+        navigate("/")
+
+        // 3. Forzamos recarga para que el Navbar vea al nuevo usuario
+        window.location.reload()
+      } else {
+        alert(data.message || "No se pudo crear la cuenta")
+      }
+
+    } catch (error) {
+      console.error("Error en registro:", error)
+      alert("Error de conexión con el servidor")
+    }
   }
 
-  try {
-    const data = await apiService.register(nombre, emailLimpio, password)
-    alert(data.message)
-
-  } catch (error) {
-    alert("Error de conexión con el servidor")
-  }
-}
   return (
-
     <div className="min-h-screen flex items-center justify-center bg-gray-900">
-      
-      <div className="bg-gray-800 p-8 rounded-xl w-80">
-
-        <h2 className="text-white text-xl mb-4 text-center">Registro</h2>
+      <div className="bg-gray-800 p-8 rounded-xl w-80 shadow-2xl">
+        <h2 className="text-white text-xl mb-6 text-center font-bold">Registro</h2>
 
         <input
           placeholder="Nombre"
-          className="w-full p-2 mb-3 rounded bg-gray-700 text-white"
+          className="w-full p-2 mb-3 rounded bg-gray-700 text-white outline-none border border-transparent focus:border-green-500"
           onChange={(e) => setNombre(e.target.value)}
         />
 
-        <div className="flex mb-3">
-          <input
-            type="email"
-            placeholder="Email"
-            className="w-full p-2 mb-3 rounded bg-gray-700 text-white"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
+        <input
+          type="email"
+          placeholder="Email"
+          className="w-full p-2 mb-3 rounded bg-gray-700 text-white outline-none border border-transparent focus:border-green-500"
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
         <input
           type="password"
           placeholder="Password"
-          className="w-full p-2 mb-3 rounded bg-gray-700 text-white"
+          className="w-full p-2 mb-6 rounded bg-gray-700 text-white outline-none border border-transparent focus:border-green-500"
           onChange={(e) => setPassword(e.target.value)}
         />
 
         <button
           onClick={handleRegister}
-          className="w-full bg-green-600 p-2 rounded text-white"
+          className="w-full bg-green-600 hover:bg-green-700 transition-colors p-2 rounded text-white font-bold"
         >
           Crear cuenta
         </button>
-
+        
+        <p className="text-gray-400 text-xs mt-4 text-center">
+          Al registrarte, entrarás automáticamente a tu nueva cuenta.
+        </p>
       </div>
     </div>
   )
