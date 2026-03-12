@@ -25,19 +25,14 @@ function Register() {
     try {
       const data = await apiService.register(nombre, emailLimpio, password)
 
-      // Verificamos si el registro fue exitoso
-      // Nota: Dependiendo de tu backend, el objeto de usuario puede estar en data o data.user
       if (data && (data.id || data.user)) {
         alert("¡Cuenta creada con éxito! Entrando...")
 
-        // 1. Guardamos los datos en localStorage para iniciar sesión automáticamente
         const datosUsuario = data.user ? data.user : data
         localStorage.setItem("user", JSON.stringify(datosUsuario))
 
-        // 2. Redirigimos al Home
         navigate("/")
 
-        // 3. Forzamos recarga para que el Navbar vea al nuevo usuario
         window.location.reload()
       } else {
         alert(data.message || "No se pudo crear la cuenta")
