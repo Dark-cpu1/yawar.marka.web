@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { apiService } from "../services/api" // Importación corregida
+import { apiService } from "../services/api" 
 
 function AdminPanel() {
   const [titulo, setTitulo] = useState("")
@@ -17,7 +17,6 @@ function AdminPanel() {
     if (archivo) formData.append("archivo", archivo)
 
     try {
-      // Usamos el servicio centralizado para evitar errores de URL
       const res = await apiService.createInforme(formData)
 
       if (res) {

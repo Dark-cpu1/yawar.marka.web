@@ -1,9 +1,9 @@
-const API_URL = import.meta.env.VITE_API_URL || "https://yawarmarkaweb-production-1701.up.railway.app";
+// Forzamos la URL directa para eliminar el error 'undefined' de Vercel
+const API_URL = "https://yawarmarkaweb-production-1701.up.railway.app";
 
-console.log("Conectando API a:", API_URL);
+console.log("Conectado directamente a Railway en:", API_URL);
 
 export const apiService = {
-  // --- AUTENTICACIÓN ---
   login: (email: string, password: string) =>
     fetch(`${API_URL}/api/login`, {
       method: "POST",

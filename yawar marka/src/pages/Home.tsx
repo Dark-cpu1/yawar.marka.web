@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 
-// Mantenemos el respaldo para que no falle la conexión
 const apiUrl = import.meta.env.VITE_API_URL || "https://yawarmarkaweb-production-1701.up.railway.app";
 
 function Home() {
