@@ -3,6 +3,7 @@ const API_URL = import.meta.env.VITE_API_URL || "https://yawarmarkaweb-productio
 console.log("Conectando API a:", API_URL);
 
 export const apiService = {
+  // --- AUTENTICACIÓN ---
   login: (email: string, password: string) =>
     fetch(`${API_URL}/api/login`, {
       method: "POST",
@@ -17,6 +18,7 @@ export const apiService = {
       body: JSON.stringify({ nombre, email, password })
     }).then(res => res.json()),
 
+  // --- USUARIOS ---
   getUsers: () =>
     fetch(`${API_URL}/api/users`).then(res => res.json()),
 
@@ -30,6 +32,7 @@ export const apiService = {
       body: JSON.stringify({ rol })
     }).then(res => res.json()),
 
+  // --- INFORMES ---
   getInformes: () =>
     fetch(`${API_URL}/api/informes`).then(res => res.json()),
 
@@ -42,6 +45,7 @@ export const apiService = {
   deleteInforme: (id: number) =>
     fetch(`${API_URL}/api/informes/${id}`, { method: "DELETE" }).then(res => res.json()),
 
+  // --- REACCIONES ---
   getReacciones: (informeId: number) =>
     fetch(`${API_URL}/api/reacciones/${informeId}`).then(res => res.json()),
 
@@ -52,6 +56,7 @@ export const apiService = {
       body: JSON.stringify({ informe_id, tipo })
     }).then(res => res.json()),
 
+  // --- COMENTARIOS ---
   getComentarios: (informeId: number) =>
     fetch(`${API_URL}/api/comentarios/${informeId}`).then(res => res.json()),
 
