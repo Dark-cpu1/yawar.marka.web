@@ -22,4 +22,10 @@ export const apiService = {
 
   getInformes: () =>
     fetch(`${API_URL}/api/informes`).then(res => res.json()),
+
+  createInforme: (formData: FormData) =>
+    fetch(`${API_URL}/api/informes`, {
+      method: "POST",
+      body: formData
+    }).then(res => res.json()),
 };
