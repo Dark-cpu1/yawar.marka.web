@@ -172,9 +172,9 @@ function Home() {
             {informe.archivo && (
               <div className="mt-4">
                 {informe.archivo.match(/\.(jpg|jpeg|png|gif)$/i) ? (
-                  <img src={`${apiUrl}/uploads/${informe.archivo}`} className="w-96 rounded" />
+                  <img src={`${apiUrl}/uploads/${informe.archivo}`} className="w-full max-w-4xl rounded-lg" />
                 ) : (
-                  <video controls className="w-96 rounded">
+                  <video controls className="w-full max-w-4xl rounded-lg">
                     <source src={`${apiUrl}/uploads/${informe.archivo}`} />
                   </video>
                 )}
